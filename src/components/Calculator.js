@@ -1,29 +1,52 @@
 import React from 'react';
 
+let isValidNumber = true;
+let result = '';
+
+const numValidator = (numbers) =>{
+    for (let index = 0; index < numbers.length; index++) {
+        if (!Number.isInteger(numbers[index])) {
+            isValidNumber = false;
+            break;
+        }
+    }
+}
+
+const sum = numbers => numbers.reduce((num,acum)=> num + acum,0)
+
 const operations = (first,second,operator) =>{
-    
-    if(Number.isInteger(first) && Number.isInteger(second)){
-            switch (operator) {
-                case '+':
-                    return first + second;
-                    break;
-                case '*':
-                    return first * second;
-                    break;
-                case '-':
-                    return first - second;
-                    break;
-                default:
-                    return 'Operator not implemented';
-                    break;
-            }
-    }else{
-        return 'Los valores de entrada no son validos'
+    switch (operator) {
+        case '*':
+            return first * second;
+            break;
+        case '-':
+            return first - second;
+            break;
+        case '%':
+            return first % second;
+            break;
+        case '/':
+            return first / second;
+            break;
+        default:
+            return 'Operator not implemented';
+            break;
     }
 };
 
-function Calculator({first,second,operator}) {
-    const result = operations(first,second,operator)
+function Calculator({numbers,operator}) {
+
+    numValidator(numbers);
+
+    if(isValidNumber){
+        if(operator === '+'){
+            result = sum(numbers);
+        }else{
+            result = operations(numbers[0],numbers[1],operator);
+        }
+    }else{
+        return 'Invalid data entries';
+    }
 
     return (
         <>
