@@ -1,5 +1,8 @@
 import logo from './logo.svg';
 import './App.css';
+import Greeting from "./components/Greeting"
+import MyName from "./components/MyName"
+import Calculator from './components/Calculator';
 
 function App() {
   return (
@@ -16,6 +19,10 @@ function App() {
           rel="noopener noreferrer"
         >
           Learn React
+          < Greeting/>
+          <MyName name = "Rafa" lastName = "Martínez"/>
+          <Calculator first={'perro'} second={20} operator={'*'}/>
+
         </a>
       </header>
     </div>
