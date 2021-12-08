@@ -21,7 +21,7 @@ function App() {
           Learn React
           < Greeting/>
           <MyName name = "Rafa" lastName = "Martínez"/>
-          <Calculator first={'perro'} second={20} operator={'*'}/>
+          <Calculator first={50} second={20} operator={'%'}/>
 
         </a>
       </header>

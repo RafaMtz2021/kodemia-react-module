@@ -2,27 +2,23 @@ import React from 'react';
 
 const operations = (first,second,operator) =>{
     
-    if(!(Number.isInteger(first) || Number.isInteger(second))){
-        return(
-            <div>
-                <spa>Los valores de entrada no son validos</spa>
-            </div>
-        )
+    if(Number.isInteger(first) && Number.isInteger(second)){
+            switch (operator) {
+                case '+':
+                    return first + second;
+                    break;
+                case '*':
+                    return first * second;
+                    break;
+                case '-':
+                    return first - second;
+                    break;
+                default:
+                    return 'Operator not implemented';
+                    break;
+            }
     }else{
-        switch (operator) {
-            case '+':
-                return first+second;
-                break;
-            case '*':
-                return first*second;
-                break;
-            case '-':
-                return first-second;
-                break;
-            default:
-                console.error('Operator not implemented');
-                break;
-        }
+        return 'Los valores de entrada no son validos'
     }
 };
 
@@ -30,10 +26,9 @@ function Calculator({first,second,operator}) {
     const result = operations(first,second,operator)
 
     return (
-        // fragmentos
         <>
             <h1>
-                Resultado {first} {operator} {second} = {result}
+                Resultado: {result}
             </h1>
         </>
     )
