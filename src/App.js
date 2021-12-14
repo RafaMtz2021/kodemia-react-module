@@ -1,34 +1,49 @@
+import React, {useEffect,useState} from 'react';
+
 import logo from './logo.svg';
 import './App.css';
 
-import Greeting from "./components/Greeting"
-import MyName from "./components/MyName"
-import Calculator from './components/Calculator'
-import Counter from "./components/Counter/"
 import Nav from "./components/Nav/"
+import Cards from './components/Cards'
+import Pagination from "./components/Pagination";
+
 
 function App() {
+
+  const [hero, setHero] = useState([]);
+
+  useEffect(() => {
+		const getHeroes = async () => {
+			const response = await fetch("https://rickandmortyapi.com/api/character/?page=4")
+
+			const data = await response.json()
+			
+      setHero(data.results)
+
+		}
+		getHeroes()
+	}, []);
+
   return (
     <div className="App">
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
-        {/* <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p> */}
-        <a
-          className="App-link"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
           Learn React
-          {/* <Greeting />
-          <MyName name = "Rafa" lastName = "Martínez"/>
-          <Calculator numbers={[10,35,22,86]} operator={'+'}/>
-          <Counter /> */}
-
           <Nav />
-
-        </a>
+      
+      {
+      hero.map((heroes) =>{
+        return(
+          <Cards 
+          id={heroes.id}
+          image={heroes.image}
+          name={heroes.name}
+          status={heroes.status}
+          species={heroes.species}
+          />  
+        )})
+      }
+      <Pagination />
       </header>
     </div>
   );

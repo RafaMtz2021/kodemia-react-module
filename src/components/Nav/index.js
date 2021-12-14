@@ -1,25 +1,24 @@
 import React, { useState, useEffect } from "react";
 // Styles
 import "./Nav.css";
-//Content
-import _content from "../utils/content";
 
 function Nav() {
 	const [content, setContent] = useState([])
 
 	useEffect(() => {
-		// await fetch()
-		setTimeout(() => {
-			const response = _content;
-			setContent(response);
-		}, 2000);
+		const getUsers = async () => {
+			const response = await fetch("users.json")
+			console.table(response);
+			const _content = await response.json()
+			console.log(_content);
+			setContent(_content)
+		}
+		getUsers()
 	}, []);
 
-	// content.map((message)=>{
-	// 	console.log(message);
-	// })
+	
 
-	const [active, setActive] = useState(3);
+	const [active, setActive] = useState(0);
 
 	const handleClick = (itemID) => {
 		setActive(itemID);
@@ -40,6 +39,7 @@ function Nav() {
 			break;
 		case 4:
 			message = content[3].tag
+			break;
 		default:
 			message = "No message"
 			break;
