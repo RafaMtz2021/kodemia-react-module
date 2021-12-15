@@ -10,18 +10,19 @@ import Pagination from "./components/Pagination";
 
 function App() {
 
-  const [hero, setHero] = useState([]);
+  const [character, setCharacter] = useState([]);
 
   useEffect(() => {
-		const getHeroes = async () => {
-			const response = await fetch("https://rickandmortyapi.com/api/character/?page=4")
+		const getCharacteres = async () => {
+      
+			const response = await fetch("https://rickandmortyapi.com/api/character/?page=10")
 
 			const data = await response.json()
 			
-      setHero(data.results)
+      setCharacter(data.results)
 
 		}
-		getHeroes()
+		getCharacteres()
 	}, []);
 
   return (
@@ -32,14 +33,14 @@ function App() {
           <Nav />
       
       {
-      hero.map((heroes) =>{
+      character.map((characteres) =>{
         return(
           <Cards 
-          id={heroes.id}
-          image={heroes.image}
-          name={heroes.name}
-          status={heroes.status}
-          species={heroes.species}
+            id={characteres.id}
+            image={characteres.image}
+            name={characteres.name}
+            status={characteres.status}
+            species={characteres.species}
           />  
         )})
       }

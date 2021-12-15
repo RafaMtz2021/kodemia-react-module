@@ -8,9 +8,9 @@ function Nav() {
 	useEffect(() => {
 		const getUsers = async () => {
 			const response = await fetch("users.json")
-			console.table(response);
+			//console.table(response);
 			const _content = await response.json()
-			console.log(_content);
+			//console.log(_content);
 			setContent(_content)
 		}
 		getUsers()
