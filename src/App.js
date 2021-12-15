@@ -1,53 +1,59 @@
-import React, {useEffect,useState} from 'react';
-
-import logo from './logo.svg';
-import './App.css';
-
-import Nav from "./components/Nav/"
-import Cards from './components/Cards'
-import Pagination from "./components/Pagination";
-
+import "./App.css";
+import { useState } from "react";
+import chip from './chip.JPG'
+import visa from './visa.JPG'
 
 function App() {
+	const [creditCardNumber, setCreditCardNumber] = useState('');
+	const [name, setName] = useState('');
+  const [valid, setValid] = useState('');
 
-  const [character, setCharacter] = useState([]);
+	const handleSubmit = (event) => {
+		event.preventDefault();
+		console.log(event);
+	};
 
-  useEffect(() => {
-		const getCharacteres = async () => {
-      
-			const response = await fetch("https://rickandmortyapi.com/api/character/?page=10")
-
-			const data = await response.json()
-			
-      setCharacter(data.results)
-
-		}
-		getCharacteres()
-	}, []);
-
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-          Learn React
-          <Nav />
-      
-      {
-      character.map((characteres) =>{
-        return(
-          <Cards 
-            id={characteres.id}
-            image={characteres.image}
-            name={characteres.name}
-            status={characteres.status}
-            species={characteres.species}
-          />  
-        )})
-      }
-      <Pagination />
-      </header>
-    </div>
-  );
+	return (
+		<div className="container">
+			<form className="form" onSubmit={handleSubmit}>
+				<div className="flex">
+					<input
+						id="creditCardNumber"
+						placeholder={'Credit Card Number'}
+						onChange={(e) => setCreditCardNumber(e.target.value)}
+						value={creditCardNumber}
+					/>
+				<div>
+					<input
+						type={"text"}
+						id="name"
+						placeholder={'Name'}
+						onChange={(e) => setName(e.target.value)}
+						value={name}
+					/>
+				</div>
+          <input
+						type={"text"}
+						id="valid"
+						placeholder={'Valid thru: mm/yy'}
+						onChange={(e) => setValid(e.target.value)}
+						value={valid}
+					/>
+				</div>
+			</form>
+      <div className="card ms-4 bk rounded-3" style={{width: 22 + 'em' , height: 13 + 'em'}} >
+				<div className="d-flex justify-content-between">
+					<img src={chip} width="40" height="40" className="img-thumbnail m-2" alt='chip'></img>
+					<img src={visa} width="80" height="50" className="img-thumbnail m-2" alt='visa'></img>
+				</div>
+      	<div className="card-body">
+        	<h5 className="card-title text-white mb-4">Number: {creditCardNumber}</h5>
+        	<h5 className="card-title text-white mb-4">Name: {name.toUpperCase()}</h5>
+        	<p className="card-title  text-white">Valid thru: {valid}</p>
+      	</div>
+			</div>
+		</div>
+	);
 }
 
 export default App;
