@@ -72,7 +72,7 @@ export default function UsersNew() {
 					value={birthdate}
 					setValue={setBirthdate}
 				/>
-				<button className="btn btn-primary btn-lg" type="submit">Crear</button>
+				<button className="btn btn-primary ms-5 mt-3" type="submit">Create</button>
 			</form>
 		</div>
 	);
