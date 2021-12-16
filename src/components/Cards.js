@@ -1,24 +1,15 @@
-import React from "react";
+import React from 'react'
 
-function Cards({ id, image, name, status, species }) {
-  return (
-    <div className="container d-flex justify-content-center mb-4" key={id} >
-      <div className="card" style={{ width: 10 + "em" } } >
-        <img src={image} className="card-img-top" alt="..." ></img>
-        <div className="card-body">
-          <h5 className="card-title fw-bold" style={{ color: "black" }} >
-            {name}
-          </h5>
-          <p
-            className="card-text fs-5 ps-5"
-            style={{ width: 10 + "em", color: "black" }}
-          >
-            {species} / {status}  
-          </p>
-        </div>
-      </div>
-    </div>
-  );
+const Character = ({ name, img, species, status}) => {  
+  return (    
+  <div className="card" style={{width: 18 + 'em'}}>
+  <img src={img} className="card-img-top" alt="..."/>
+  <div className="card-body">
+    <h5 className="card-title fw-bolder fs-4">{name}</h5>
+    <p className="card-text fw-bold fs-6">{species} / Status: {status}</p>
+  </div>
+  </div>
+  )
 }
 
-export default Cards;
+export default Character

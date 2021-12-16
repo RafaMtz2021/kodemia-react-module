@@ -1,93 +1,71 @@
 import React, {useEffect,useState} from 'react';
-import logo from './logo.svg';
 import './App.css';
 import Cards from './components/Cards'
-
-//import Pagination from "./components/Pagination";
+import Pagination from "./components/Pagination";
 
 function App() {
 
-  const [character, setCharacter] = useState([]);
-	const [prev, setPrev] = useState('')
-	const [next, setNext] = useState('')
-	const [page, setPage] = useState('page=5')
+	const [loading, setLoading] = useState(true)
+	const [characters, setCharacters] = useState([])
+	const [currentPageUrl, setCurrentPageUrl] = useState("https://rickandmortyapi.com/api/character")
+	const [nextPageUrl, setNextPageUrl] = useState()
+	const [prevPageUrl, setPrevPageUrl] = useState()
+	const [pages, setPages] = useState()
 
-  useEffect(() => {
-		const getCharacteres = async () => {
-      
-			const response = await fetch(`https://rickandmortyapi.com/api/character/?${page}`)
+	useEffect(() => {  
+		const url = currentPageUrl  
+		setLoading(true)  
 
-			const data = await response.json()
-			
-      setCharacter(data.results)
-//*************************************************************
-			console.log(data.info);
+		const fetchData = async () => {    
+			const res = await fetch(url);    
+			const data = await res.json();
 
-			const _prevPage = data.info.prev
-			console.log(_prevPage);
-			const prevPage = _prevPage.split('?')
-			console.log(prevPage);
-			const previous = prevPage[1]
-			console.log(previous);
-			setPrev(previous)
+			setCharacters(data.results)    
+			setLoading(false);    
+			setNextPageUrl(data.info.next);    
+			setPrevPageUrl(data.info.prev);    
+			setPages(data.info.pages)  
+	}  
+		fetchData();
+	},[currentPageUrl])
 
-			const _nextPage = data.info.next
-			console.log(_nextPage);
-			const nextPage = _nextPage.split('?')
-			console.log(nextPage);
-			const fNextPage = nextPage[1]
-			console.log(fNextPage);
-
-		}
-		getCharacteres()		
-	}, [page]);
-
-	const handlePagination = (e) =>{
-		if('prev'){
-			console.log(e);
-			setPage(prev)
-		}else{
-			console.log(e);
-			setPage(next)
-		}
+	function nextPage() {
+		setCurrentPageUrl(nextPageUrl)
 	}
 
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-				<p className='App-link'>Rick and Morty API</p>
-      {
-      character.map((characteres) =>{
-        return(
-          <Cards 
-            id={characteres.id}
-            image={characteres.image}
-            name={characteres.name}
-            status={characteres.status}
-            species={characteres.species}
-          />  
-        )})
-      }
-      {/* <Pagination /> */}
-				<nav aria-label="Page navigation example">
-      	  <ul className="pagination fw-bolder">
-      	    <li className="page-item">
-      	      <a className="page-link" href="javascript:" onClick={(e)=>{handlePagination('prev')}}>
-      	        Previous
-      	      </a>
-      	    </li>
+	function prevPage() {
+		setCurrentPageUrl(prevPageUrl)
+	}
 
-      	    <li className="page-item">
-      	      <a className="page-link" href="javascript:" onClick={(e)=>{handlePagination('next')}}>
-      	        Next
-      	      </a>
-      	    </li>
-      	  </ul>
-      	</nav>
-      </header>
-    </div>
-  );
+	function goToPage(num) {
+		setCurrentPageUrl(`https://rickandmortyapi.com/api/character?page=${num}`)}
+		if (loading) 
+			return "Loading..."
+			const charList = characters.map(char => 
+			<Cards key={Math.floor(Math.random() * 10000)} 
+				name={char.name} 
+				img={char.image}
+				species={char.species}
+				status={char.status}
+			/>)
+
+		return (  
+			<div className="App">    
+			<Pagination    
+				nextPage={nextPageUrl ? nextPage : null}    
+				prevPage={prevPageUrl ? prevPage : null}    
+				goToPage={goToPage}    
+				pages={pages}  />  
+			<div className="d-flex justify-content-center">
+				<div>{charList}</div>    
+			</div>  
+			<Pagination    
+				nextPage={nextPageUrl ? nextPage : null}    
+				prevPage={prevPageUrl ? prevPage : null}    
+				goToPage={goToPage}    
+				pages={pages}  
+			/>
+			</div>);
 }
 
 export default App;

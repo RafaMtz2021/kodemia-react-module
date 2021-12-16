@@ -1,39 +1,17 @@
-import React from "react";
+import React from 'react'
 
-function Pagination(prev, first, second, third, next) {
-  return (
-    <div>
-      <nav aria-label="Page navigation example">
-        <ul className="pagination fw-bolder">
-          <li className="page-item">
-            <a className="page-link" href="javascript:">
-              Previous
-            </a>
-          </li>
-          <li className="page-item">
-            <a className="page-link" href="javascript:">
-              1
-            </a>
-          </li>
-          <li className="page-item">
-            <a className="page-link" href="javascript:">
-              2
-            </a>
-          </li>
-          <li className="page-item">
-            <a className="page-link" href="javascript:">
-              3
-            </a>
-          </li>
-          <li className="page-item">
-            <a className="page-link" href="javascript:">
-              Next
-            </a>
-          </li>
-        </ul>
-      </nav>
-    </div>
-  );
+const Pagination = ({ nextPage, prevPage, goToPage, pages }) => {  
+let pageButtons = []  
+
+for (let i = 1; i <= pages; i++) {  
+  pageButtons.push(<button key={i} className="btn btn-outline-dark" onClick={() => goToPage(i)}>{i}</button>)
+}  
+return (    
+  <div>      
+    {prevPage && (<button className="btn btn-outline-primary" onClick={prevPage}>Previous</button>)}      
+    {pageButtons}      
+    {nextPage && (<button className="btn btn-outline-primary" onClick={nextPage}>Next</button>)}    
+  </div>  )
 }
 
-export default Pagination;
+export default Pagination
