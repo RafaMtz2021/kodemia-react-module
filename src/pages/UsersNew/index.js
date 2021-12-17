@@ -16,6 +16,7 @@ export default function UsersNew() {
 	const [gender, setGender] = useState("");
 	const [occupation, setOccupation] = useState("");
 	const [birthdate, setBirthdate] = useState("");
+	const [image, setImage] = useState("");
 
 	const cleanForm = () => {
 		setFirstName("");
@@ -23,6 +24,7 @@ export default function UsersNew() {
 		setGender("");
 		setOccupation("");
 		setBirthdate("");
+		setImage("")
 	};
 
 	const handleSubmit = async (event) => {
@@ -34,6 +36,7 @@ export default function UsersNew() {
 				gender,
 				occupation,
 				birthdate,
+				image,
 			};
 			await createUser(data);
 			cleanForm();
@@ -44,7 +47,7 @@ export default function UsersNew() {
 
 	return (
 		<div className="container flex-col">
-			<h1>Crea un usuario</h1>
+			<h1>Create new user</h1>
 			<form onSubmit={handleSubmit}>
 				<Input
 					id="firstName"
@@ -71,6 +74,13 @@ export default function UsersNew() {
 					label="Birthdate"
 					value={birthdate}
 					setValue={setBirthdate}
+				/>
+				<Input
+					id="image"
+					type="text"
+					label="image"
+					value={image}
+					setValue={setImage}
 				/>
 				<button className="btn btn-primary ms-5 mt-3" type="submit">Create</button>
 			</form>
