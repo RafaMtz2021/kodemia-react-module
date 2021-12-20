@@ -38,15 +38,15 @@ function Users() {
           />)
         })}
       </div>
-      			<div className="aside">
-				<nav className="side-nav">
-					<Link className="link" to="">
-						List users
-					</Link>
-					<Link className="link" to="new">
-						Create user
-					</Link>
-				</nav>
+      	<div className="aside">
+				  <nav className="side-nav">
+				  	<Link className="link" to="">
+				  		List users
+				  	</Link>
+				  	<Link className="link" to="new">
+				  		Create user
+				  	</Link>
+				  </nav>
 			</div>
     </>
   )

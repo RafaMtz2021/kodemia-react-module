@@ -11,7 +11,6 @@ export default function UserDetail() {
 	useEffect(() => {
 		const get = async () => {
 			const response = await getUser(params.userID);
-			console.log(response);
 			setUser(response);
 		};
 		get();
@@ -26,6 +25,8 @@ export default function UserDetail() {
 				<h5 className="card-subtitle mb-2">Occupation: {user?.occupation}</h5>
 				<h6 className="card-text">Gender: {user?.gender} </h6>
 				<h6 className="card-text">Birthdate: {user?.birthdate} </h6>
+				<span title="edit" style={{cursor: 'pointer'}}>📝</span>
+				<span className="ms-3" title="delete" style={{cursor: 'pointer'}}>❌</span>
 			</div>
 		</div>
 	</div>
