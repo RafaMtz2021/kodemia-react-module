@@ -29,20 +29,28 @@ export default function UsersNew() {
 
 	const handleSubmit = async (event) => {
 		event.preventDefault();
-		try {
-			const data = {
-				firstName,
-				lastName,
-				gender,
-				occupation,
-				birthdate,
-				image,
-			};
-			await createUser(data);
-			cleanForm();
-		} catch (error) {
-			console.error(error.message);
+
+		if([firstName,lastName,gender,occupation,birthdate,image].includes('')){
+			alert('Todos los campos son obligatorios')
+		}else{
+			console.log('todos los campos llenos')
+			try {
+				const data = {
+					firstName,
+					lastName,
+					gender,
+					occupation,
+					birthdate,
+					image,
+				};
+				await createUser(data);
+				cleanForm();
+				alert('user created!')
+			} catch (error) {
+				console.error(error.message);
+			}
 		}
+
 	};
 
 	return (

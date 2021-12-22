@@ -10,6 +10,8 @@ import Home from "./pages/Home";
 import UsersNew from "./pages/UsersNew";
 import Users from './pages/Users/'
 import UserDetail from "./pages/UserDetail";
+import UsersUpdate from "./pages/UserUpdate";
+
 
 ReactDOM.render(
 	<React.StrictMode>
@@ -20,7 +22,9 @@ ReactDOM.render(
 					<Route index element={<Home />} />
 					<Route path="users" element={<Users />}>
 						<Route path="new" element={<UsersNew />} />
-						<Route path=":userID" element={<UserDetail />} />
+						<Route path=":userID" element={<UserDetail />} >
+							<Route path="update" element={<UsersUpdate />} />
+						</Route>
 					</Route>
 				</Route>
 			</Routes>

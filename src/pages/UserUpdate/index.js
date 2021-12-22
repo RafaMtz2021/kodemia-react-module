@@ -1,14 +1,16 @@
 import React from "react";
-import { useState } from "react/cjs/react.development";
+import { useState, useEffect } from "react/cjs/react.development";
 
 // CSS
-import "./UsersUpdateNew.css";
+import "./UserUpdate.css";
 
 // Input
 import Input from "../../components/Input";
 
 // Services
-import { updateUser } from "../../services/users";
+import { getUser, updateUser } from "../../services/users";
+
+import { useParams } from "react-router-dom";
 
 export default function UsersUpdate() {
 	const [firstName, setFirstName] = useState("");
@@ -27,11 +29,27 @@ export default function UsersUpdate() {
 		setImage("")
 	};
 
+	const params = useParams();
+
+	useEffect(() => {
+		const get = async () => {
+			const { firstName, lastName, gender, occupation, birthdate, image } =
+				await getUser(params.userID);
+			setFirstName(firstName);
+			setLastName(lastName);
+			setGender(gender);
+			setOccupation(occupation);
+			setBirthdate(birthdate);
+			setImage(image);
+		};
+		get();
+	}, [params.userID]);
+
+
 	const handleSubmit = async (event) => {
 		event.preventDefault();
 		try {
 			const data = {
-        id,
 				firstName,
 				lastName,
 				gender,
@@ -39,7 +57,7 @@ export default function UsersUpdate() {
 				birthdate,
 				image,
 			};
-			await updateUser(data);
+			await updateUser(params.userID, data);
 			cleanForm();
 		} catch (error) {
 			console.error(error.message);
@@ -83,7 +101,7 @@ export default function UsersUpdate() {
 					value={image}
 					setValue={setImage}
 				/>
-				<button className="btn btn-primary ms-5 mt-3" type="submit">Create</button>
+				<button className="btn btn-primary ms-5 mt-3" type="submit">Update</button>
 			</form>
 		</div>
 	);

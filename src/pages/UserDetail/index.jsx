@@ -1,12 +1,15 @@
 import React, { useEffect, useState } from "react";
 
 // RR
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams, Outlet } from "react-router-dom";
 import { getUser } from "../../services/users";
+import { deleteUser } from "../../services/users";
+
 
 export default function UserDetail() {
 	const [user, setUser] = useState({});
 	const params = useParams();
+	const navigate = useNavigate();
 
 	useEffect(() => {
 		const get = async () => {
@@ -15,6 +18,15 @@ export default function UserDetail() {
 		};
 		get();
 	}, [params.userID]);
+
+
+	async function handleDelete  () {
+		try {
+			await deleteUser(params.userID)
+		} catch (error) {
+			console.error(error)
+		}
+}
 
 	return (
 		<div className="d-flex justify-content-center bk-color">
@@ -25,8 +37,9 @@ export default function UserDetail() {
 				<h5 className="card-subtitle mb-2">Occupation: {user?.occupation}</h5>
 				<h6 className="card-text">Gender: {user?.gender} </h6>
 				<h6 className="card-text">Birthdate: {user?.birthdate} </h6>
-				<span title="edit" style={{cursor: 'pointer'}}>📝</span>
-				<span className="ms-3" title="delete" style={{cursor: 'pointer'}}>❌</span>
+				<span onClick={() => navigate("update")} title="edit" style={{cursor: 'pointer'}}>📝</span>
+				<span onClick={() => handleDelete()} className="ms-3" title="delete" style={{cursor: 'pointer'}}>❌</span>
+				<Outlet />
 			</div>
 		</div>
 	</div>

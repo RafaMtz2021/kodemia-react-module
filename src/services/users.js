@@ -37,4 +37,11 @@ const updateUser = async (id,data) => {
 	return await response.json();
 };
 
-export { createUser, getUsers, getUser, updateUser };
+const deleteUser = async (id) => {
+	const response = await fetch(`${BASE_URL}users/${id}.json`, {
+		method: "DELETE",
+	});
+	return await response.json();
+};
+
+export { createUser, getUsers, getUser, updateUser, deleteUser };
