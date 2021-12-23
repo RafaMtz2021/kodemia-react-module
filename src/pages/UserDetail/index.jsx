@@ -23,6 +23,7 @@ export default function UserDetail() {
 	async function handleDelete  () {
 		try {
 			await deleteUser(params.userID)
+			navigate("/users")
 		} catch (error) {
 			console.error(error)
 		}
